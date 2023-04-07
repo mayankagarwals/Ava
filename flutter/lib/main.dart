@@ -4,11 +4,40 @@ import 'package:intl/intl.dart';
 // ignore_for_file: prefer_const_constructors
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget{
+
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+Widget _buildMessageContainer(List<String> messages) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+    child: Column(
+      children: messages.map((message) {
+        return Container(
+          margin: EdgeInsets.only(bottom: 8.0),
+          padding: EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Text(message),
+        );
+      }).toList(),
+    ),
+  );
+}
+
+
+class _MyAppState extends State<MyApp> {
+
+  List<String> myList = ["Woah", "Woah indeed"];
 
   // This widget is the root of your application.
   @override
@@ -23,37 +52,34 @@ class MyApp extends StatelessWidget {
 
       home: Scaffold(
         backgroundColor: Color(0xff292F3F),
-        body: Stack(
+        body: Column(
           children: [
             Container(
-              child: Center(
-                child: Text(
-                  'April 7, 2023',
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                  formattedDate,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
+                )]
+              ),
+              constraints: BoxConstraints(
+                minWidth: 0.0,
+                maxWidth: double.infinity,
+                minHeight: 0.0,
+                maxHeight: double.infinity,
               ),
             ),
+
+            _buildMessageContainer(myList),
+
             Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: Container(
-                height: 200.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 16.0,
+              bottom: 16.0, //how to make this device independent
               left: 16.0,
               right: 16.0,
               child: Padding(
